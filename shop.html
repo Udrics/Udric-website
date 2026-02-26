@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop — Udric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  /* ─── SHOP INTRO ─── */
+  .shop-intro { padding: 80px 6vw 60px; background: var(--ivory); }
+  .shop-intro-inner { max-width: 680px; }
+  .shop-intro p { color: var(--muted); line-height: 1.9; font-size: 0.96rem; margin-top: 16px; }
+
+  /* ─── COMPANY DIVIDER ─── */
+  .company-divider {
+    display: flex; align-items: center; gap: 24px;
+    padding: 40px 6vw 0;
+    background: var(--ivory);
+  }
+  .company-divider-line { flex: 1; height: 1px; background: rgba(0,0,0,0.08); }
+  .company-divider-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* ─── COMPANY HEADER CARD ─── */
+  .company-header {
+    padding: 56px 6vw 0;
+    background: var(--ivory);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .company-header-content {}
+  .company-badge {
+    display: inline-block; font-size: 0.63rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold);
+    padding: 5px 14px; margin-bottom: 20px;
+  }
+  .company-header-content h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; line-height: 1.15; margin-bottom: 16px;
+  }
+  .company-header-content p {
+    color: var(--muted); line-height: 1.85; font-size: 0.93rem;
+  }
+  .company-header-img {
+    width: 100%; height: 360px; object-fit: cover;
+  }
+
+  /* ─── CATEGORY TABS ─── */
+  .cat-tabs {
+    display: flex; gap: 0;
+    padding: 36px 6vw 0;
+    background: var(--ivory);
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+    overflow-x: auto;
+  }
+  .cat-tab {
+    font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 12px 24px; background: none; border: none; border-bottom: 2px solid transparent;
+    color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.3s; white-space: nowrap;
+  }
+  .cat-tab.active, .cat-tab:hover { color: var(--charcoal); border-bottom-color: var(--gold); }
+
+  /* ─── PRODUCT GRID ─── */
+  .product-section {
+    padding: 48px 6vw 72px;
+    background: var(--ivory);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .product-card { cursor: default; }
+  .product-img-wrap { position: relative; overflow: hidden; background: var(--deep-cream); }
+  .product-card img { width: 100%; height: 300px; object-fit: cover; display: block; transition: transform 0.6s ease; }
+  .product-card:hover img { transform: scale(1.04); }
+  .product-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--gold); color: var(--warm-black);
+    font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 4px 10px;
+  }
+  .coming-hover {
+    position: absolute; inset: 0; background: rgba(17,16,9,0.42);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.4s;
+  }
+  .product-card:hover .coming-hover { opacity: 1; }
+  .coming-hover span {
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--cream); border: 1px solid rgba(250,247,242,0.5); padding: 9px 18px;
+  }
+  .product-info { padding: 16px 0 6px; }
+  .product-info h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 3px; }
+  .product-info .pcat { font-size: 0.7rem; color: var(--muted); letter-spacing: 0.06em; }
+  .product-soon { font-size: 0.67rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-top: 5px; display: block; }
+
+  /* ─── SEPARATOR ─── */
+  .company-sep { height: 2px; background: var(--deep-cream); margin: 0 6vw; }
+
+  /* ─── SECOND COMPANY ─── */
+  .company-header.dark-bg {
+    background: var(--warm-black);
+    padding-bottom: 0;
+  }
+  .company-header.dark-bg .company-header-content h2 { color: var(--cream); }
+  .company-header.dark-bg .company-header-content p { color: rgba(250,247,242,0.5); }
+  .product-section.dark-bg { background: var(--warm-black); }
+  .product-section.dark-bg .product-card img { /* same */ }
+  .product-section.dark-bg .product-info h4 { color: var(--cream); }
+  .product-section.dark-bg .product-info .pcat { color: rgba(250,247,242,0.4); }
+  .cat-tabs.dark-bg { background: var(--warm-black); border-bottom-color: rgba(255,255,255,0.07); }
+  .cat-tabs.dark-bg .cat-tab { color: rgba(250,247,242,0.4); }
+  .cat-tabs.dark-bg .cat-tab.active, .cat-tabs.dark-bg .cat-tab:hover { color: var(--cream); border-bottom-color: var(--gold); }
+  .company-divider.dark-bg { background: var(--warm-black); }
+  .company-divider.dark-bg .company-divider-line { background: rgba(255,255,255,0.1); }
+
+  /* ─── NOTIFY ─── */
+  .notify-bar { background: var(--gold); padding: 48px 6vw; display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+  .notify-bar h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 300; color: var(--warm-black); }
+  .notify-bar p { font-size: 0.85rem; color: rgba(17,16,9,0.65); margin-top: 4px; }
+  .notify-form-wrap { display: flex; gap: 0; }
+  .notify-form-wrap input { background: rgba(255,255,255,0.5); border: 1px solid rgba(17,16,9,0.2); border-right: none; padding: 13px 18px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; outline: none; min-width: 260px; border-radius: 0; }
+  .notify-form-wrap button { background: var(--warm-black); color: var(--cream); border: none; padding: 13px 24px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: background 0.3s; white-space: nowrap; }
+  .notify-form-wrap button:hover { background: var(--charcoal); }
+  .notify-msg { font-size: 0.8rem; color: var(--warm-black); margin-top: 8px; display: none; }
+
+  @media(max-width:1100px){ .products-grid { grid-template-columns: repeat(3,1fr); } }
+  @media(max-width:900px){
+    .company-header { grid-template-columns:1fr; gap:32px; }
+    .products-grid { grid-template-columns: repeat(2,1fr); }
+    .notify-bar { flex-direction:column; align-items:flex-start; }
+    .notify-form-wrap { width:100%; }
+    .notify-form-wrap input { flex:1; min-width:0; }
+  }
+  @media(max-width:500px){ .products-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<nav id="navbar" class="nav-solid">
+  <a href="index.html" class="nav-logo">UDRIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html">Our Services</a></li><li><a href="projects.html">Our Projects</a></li>
+    <li><a href="shop.html" class="active">Shop</a></li>
+   <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta-btn" onclick="openConsult()">Book Consultation</button>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Home</a><a href="about.html" onclick="closeMobile()">About</a>
+  <a href="services.html" onclick="closeMobile()">Services</a><a href="projects.html" onclick="closeMobile()">Projects</a>
+  <a href="shop.html" onclick="closeMobile()">Shop</a>
+  <a href="media.html" onclick="closeMobile()">Media</a><a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+<div class="page-hero" style="padding-top:100px">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?w=1800&q=80')"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-eyebrow">Udric Shop</p>
+    <h1 class="page-hero-title">Two companies.<br>Every corner<br>of your <em>home.</em></h1>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="shop-intro">
+  <div class="shop-intro-inner reveal">
+    <span class="section-label">Our Collection</span>
+    <h2 class="section-title">Everything your space needs — from the walls to the bed.</h2>
+    <p>Udric is made up of two sister companies, each serving a different dimension of your home. Browse below by company, or filter by category. Full e-commerce launching soon — join the waitlist to be first.</p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     COMPANY 1 — UDRIC SPACES
+════════════════════════════════════════ -->
+<div class="company-divider" id="spaces">
+  <div class="company-divider-line"></div>
+  <span class="company-divider-label">Sister Company I — Udric Spaces</span>
+  <div class="company-divider-line"></div>
+</div>
+
+<div class="company-header reveal">
+  <div class="company-header-content">
+    <span class="company-badge">Udric Spaces</span>
+    <h2>Minimalist Lighting<br>&amp; Interior Pieces</h2>
+    <p>Statement chandeliers, ambient pendant lights, and sculptural fixtures — each piece chosen to give your space an unmistakable mood. Minimalist by design. Powerful in presence.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&q=80" alt="Udric Spaces" class="company-header-img">
+</div>
+
+<div class="cat-tabs" id="spacesTabs">
+  <button class="cat-tab active" onclick="filterProducts('spaces', 'all', this)">All</button>
+  <button class="cat-tab" onclick="filterProducts('spaces', 'chandeliers', this)">Chandeliers</button>
+  <button class="cat-tab" onclick="filterProducts('spaces', 'pendants', this)">Pendant Lights</button>
+  <button class="cat-tab" onclick="filterProducts('spaces', 'floor', this)">Floor Lamps</button>
+  <button class="cat-tab" onclick="filterProducts('spaces', 'wall', this)">Wall Lights</button>
+</div>
+
+<div class="product-section" id="spacesProducts">
+  <div class="products-grid">
+    <div class="product-card reveal" data-cat="chandeliers">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Crystal Minimal Chandelier">
+        <span class="product-tag">Signature</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Crystal Minimal Chandelier</h4><span class="pcat">Chandeliers</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="chandeliers">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=600&q=80" alt="Orb Statement Chandelier">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Orb Statement Chandelier</h4><span class="pcat">Chandeliers</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="pendants">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?w=600&q=80" alt="Matte Black Pendant">
+        <span class="product-tag">New</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Matte Black Pendant</h4><span class="pcat">Pendant Lights</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="pendants">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&q=80" alt="Woven Rattan Pendant">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Woven Rattan Pendant</h4><span class="pcat">Pendant Lights</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="floor">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt="Arc Floor Lamp">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Arc Floor Lamp</h4><span class="pcat">Floor Lamps</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="wall">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80" alt="Brass Wall Sconce">
+        <span class="product-tag">Bestseller</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Brass Wall Sconce</h4><span class="pcat">Wall Lights</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="chandeliers">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1572635148818-ef6fd45eb394?w=600&q=80" alt="Linear Chandelier">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Linear Chandelier</h4><span class="pcat">Chandeliers</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="pendants">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?w=600&q=80" alt="Frosted Glass Pendant">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Frosted Glass Pendant</h4><span class="pcat">Pendant Lights</span><span class="product-soon">View Only</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     COMPANY 2 — UDRIC LIVING
+════════════════════════════════════════ -->
+<div class="company-divider dark-bg" id="living">
+  <div class="company-divider-line"></div>
+  <span class="company-divider-label">Sister Company II — Udric Living</span>
+  <div class="company-divider-line"></div>
+</div>
+
+<div class="company-header dark-bg reveal">
+  <div class="company-header-content">
+    <span class="company-badge">Udric Living</span>
+    <h2>Modern Home Textiles<br>&amp; Elegant Spaces</h2>
+    <p>Luxury duvets, refined bedsheets, and bespoke curtains — every piece chosen to make your home feel like a sanctuary. Elegant. Cosy. Unmistakably Udric.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80" alt="Udric Living" class="company-header-img">
+</div>
+
+<div class="cat-tabs dark-bg" id="livingTabs">
+  <button class="cat-tab active" onclick="filterProducts('living', 'all', this, true)">All</button>
+  <button class="cat-tab" onclick="filterProducts('living', 'duvets', this, true)">Duvets</button>
+  <button class="cat-tab" onclick="filterProducts('living', 'bedsheets', this, true)">Bedsheets</button>
+  <button class="cat-tab" onclick="filterProducts('living', 'curtains', this, true)">Curtains</button>
+  <button class="cat-tab" onclick="filterProducts('living', 'accessories', this, true)">Accessories</button>
+</div>
+
+<div class="product-section dark-bg" id="livingProducts">
+  <div class="products-grid">
+    <div class="product-card reveal" data-cat="duvets">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1629140727571-9b5c6f6267b4?w=600&q=80" alt="Ivory Duvet Set">
+        <span class="product-tag">Signature</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Ivory Duvet Set</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Duvets</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="duvets">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1631049421450-348ccd7f8949?w=600&q=80" alt="Cream Duvet Set">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Cream Duvet Set</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Duvets</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="bedsheets">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=600&q=80" alt="Cloud Linen Sheets">
+        <span class="product-tag">New</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Cloud Linen Sheets</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Bedsheets</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="bedsheets">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=600&q=80" alt="Warm White Sheet Set">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Warm White Sheet Set</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Bedsheets</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="curtains">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&q=80" alt="Velvet Drape Curtains">
+        <span class="product-tag">Made to Order</span>
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Velvet Drape Curtains</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Curtains</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="curtains">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=600&q=80" alt="Sheer Linen Curtains">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Sheer Linen Curtains</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Curtains</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="accessories">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=600&q=80" alt="Cream Throw Blanket">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Cream Throw Blanket</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Accessories</span><span class="product-soon">View Only</span></div>
+    </div>
+    <div class="product-card reveal" data-cat="accessories">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=600&q=80" alt="Neutral Cushion Set">
+        <div class="coming-hover"><span>Coming Soon</span></div>
+      </div>
+      <div class="product-info"><h4>Neutral Cushion Set</h4><span class="pcat" style="color:rgba(250,247,242,0.4)">Accessories</span><span class="product-soon">View Only</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFY BAR -->
+<div class="notify-bar">
+  <div>
+    <h3>Be first when we launch.</h3>
+    <p>Join the Udric Living waitlist for early access and an exclusive opening offer.</p>
+  </div>
+  <div>
+    <div class="notify-form-wrap">
+      <input type="email" placeholder="your@email.com" id="notifyEmail">
+      <button onclick="handleNotify()">Notify Me</button>
+    </div>
+    <p class="notify-msg" id="notifyMsg">You're on the list — we'll be in touch!</p>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><span class="logo">UDRIC</span><p>Presence in every space. We design and dress homes that are seen, felt, and remembered.</p></div>
+    <div class="footer-col"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li><li><a href="shop.html">Shop</a></li></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Companies</h5><ul><li><a href="#spaces">Udric Spaces</a></li><li><a href="#living">Udric Living</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="mailto:hello@udric.com">hello@udric.com</a></li><li><a href="tel:+2349161106196">+234 916 110 6196</a></li><li><span>Lagos, Nigeria</span></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Udric Interior Design. All rights reserved.</span><span>Presence. In every space.</span></div>
+</footer>
+
+<div class="consult-overlay" id="consultModal" onclick="closeConsultOut(event)">
+  <div class="consult-box">
+    <button class="consult-close" onclick="closeConsult()">✕</button>
+    <h3>Book a Consultation</h3>
+    <p>Fill in your details and we'll be in touch within 48 hours.</p>
+    <form onsubmit="handleConsult(event)">
+      <input type="text" placeholder="Your Name *" required>
+      <input type="email" placeholder="Email Address *" required>
+      <select><option value="">Seeking For</option><option>Residential Interior Design</option><option>Commercial Design</option><option>Lighting Design</option><option>Hospitality Design</option><option>Home Textiles — Udric Living</option><option>General Enquiry</option></select>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <button type="submit">Book Consultation</button>
+      <p class="consult-success" id="consultSuccess" style="display:none">Thank you — we'll be in touch shortly.</p>
+    </form>
+  </div>
+</div>
+
+<script src="shared.js"></script><script src="consult.js"></script>
+<script>
+function filterProducts(company, cat, btn, dark) {
+  const tabsId = company === 'spaces' ? 'spacesTabs' : 'livingTabs';
+  const gridId = company === 'spaces' ? 'spacesProducts' : 'livingProducts';
+  document.querySelectorAll('#' + tabsId + ' .cat-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const cards = document.querySelectorAll('#' + gridId + ' .product-card');
+  cards.forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+function handleNotify() {
+  const v = document.getElementById('notifyEmail').value;
+  if (v && v.includes('@')) {
+    document.getElementById('notifyMsg').style.display = 'block';
+    document.getElementById('notifyEmail').value = '';
+  }
+}
+</script>
+</body>
+</html>
+

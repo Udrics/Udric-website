@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services — Udric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .services-intro { padding: var(--section-pad) 6vw; background: var(--ivory); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .services-intro p { color: var(--muted); line-height: 1.95; font-size: 0.97rem; margin-bottom: 18px; }
+  .services-intro p strong { color: var(--charcoal); font-weight: 500; }
+  .services-intro img { width: 100%; height: 520px; object-fit: cover; }
+
+  .expertise { padding: var(--section-pad) 6vw; background: var(--cream); }
+  .expertise .section-title { margin-bottom: 56px; }
+  .expertise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .exp-card { background: var(--ivory); padding: 48px 36px; border-top: 3px solid transparent; transition: border-color 0.3s, background 0.3s; }
+  .exp-card:hover { border-color: var(--gold); background: var(--deep-cream); }
+  .exp-num { font-family: 'Cormorant Garamond', serif; font-size: 2.6rem; font-weight: 300; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 20px; }
+  .exp-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 12px; }
+  .exp-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
+
+  .process { padding: var(--section-pad) 6vw; background: var(--warm-black); }
+  .process .section-label { color: var(--gold); }
+  .process .section-title { color: var(--cream); margin-bottom: 72px; }
+  .process-track { display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+  .process-track::before { content: ''; position: absolute; top: 7px; left: 0; right: 0; height: 1px; background: rgba(184,154,90,0.2); }
+  .process-step { padding-right: 28px; }
+  .step-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--gold); margin-bottom: 32px; position: relative; z-index: 1; }
+  .step-num { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 300; color: rgba(184,154,90,0.18); line-height: 1; margin-bottom: 16px; }
+  .process-step h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 400; color: var(--cream); margin-bottom: 10px; }
+  .process-step p { font-size: 0.83rem; color: rgba(250,247,242,0.43); line-height: 1.85; }
+
+  .director-strip { padding: var(--section-pad) 6vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .director-img { width: 100%; height: 540px; object-fit: cover; object-position: top; }
+  .director-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.7rem,3vw,2.5rem); font-weight: 300; font-style: italic; line-height: 1.45; color: var(--charcoal); margin-bottom: 32px; }
+  .director-name { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .director-role { font-size: 0.84rem; color: var(--muted); }
+
+  .services-cta { background: var(--charcoal); padding: 72px 6vw; text-align: center; }
+  .services-cta h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem,3.5vw,2.8rem); font-weight: 300; color: var(--cream); margin-bottom: 16px; }
+  .services-cta p { color: rgba(250,247,242,0.45); max-width: 460px; margin: 0 auto 36px; line-height: 1.8; font-size: 0.93rem; }
+
+  @media(max-width:900px){ .services-intro,.director-strip { grid-template-columns:1fr; gap:40px; } .expertise-grid { grid-template-columns:1fr 1fr; } .process-track { grid-template-columns:1fr 1fr; gap:48px; } .process-track::before { display:none; } }
+  @media(max-width:500px){ .expertise-grid,.process-track { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<nav id="navbar" class="nav-solid">
+  <a href="index.html" class="nav-logo">UDRIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Our Services</a></li><li><a href="projects.html">Our Projects</a></li>
+    <li><a href="shop.html">Shop</a></li>
+   <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta-btn" onclick="openConsult()">Book Consultation</button>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Home</a><a href="about.html" onclick="closeMobile()">About</a>
+  <a href="services.html" onclick="closeMobile()">Services</a><a href="projects.html" onclick="closeMobile()">Projects</a>
+  <a href="shop.html" onclick="closeMobile()">Shop</a>
+  <a href="media.html" onclick="closeMobile()">Media</a><a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+<div class="page-hero" style="padding-top:100px">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1800&q=80')"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-eyebrow">What We Do</p>
+    <h1 class="page-hero-title">We specialise in <em>design</em><br>that gives presence.</h1>
+  </div>
+</div>
+
+<section class="services-intro">
+  <div class="reveal">
+    <span class="section-label">Our Offering</span>
+    <h2 class="section-title" style="margin-bottom:28px">Comprehensive interior<br>design & consultancy.</h2>
+    <p>Udric is a full-service interior design studio passionate about giving every space a <strong>presence</strong>. We specialise in comprehensive interior design, lighting consultancy, and turnkey installations — always rooted in the belief that <strong>great design is felt, not just seen.</strong></p>
+    <p>Whether fitting out a commercial office, designing a luxury home, or crafting the ambience of a hospitality venue — we bring the same intentional, minimalist touch to every project.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=900&q=80" alt="Udric interior" class="reveal">
+</section>
+
+<section class="expertise">
+  <span class="section-label">Our Expertise</span>
+  <h2 class="section-title reveal">What we're known for.</h2>
+  <div class="expertise-grid" style="margin-top:0">
+    <div class="exp-card reveal"><div class="exp-num">01</div><h3>Residential Design</h3><p>Transforming homes into deeply personal spaces. From concept to completion, we design interiors that reflect who you are — with an aesthetic that whispers rather than shouts.</p></div>
+    <div class="exp-card reveal"><div class="exp-num">02</div><h3>Commercial Design</h3><p>Offices, studios, and retail spaces that project your brand with confidence. We design workspaces that energize teams and leave lasting impressions on every visitor.</p></div>
+    <div class="exp-card reveal"><div class="exp-num">03</div><h3>Lighting Design</h3><p>Minimalist light fixtures, ambient systems, and statement chandeliers that sculpt a room's mood. Light is our most powerful tool — and we use it with precision.</p></div>
+    <div class="exp-card reveal"><div class="exp-num">04</div><h3>Hospitality Design</h3><p>Hotels, restaurants, lounges, and spas that guests never want to leave. We design hospitality spaces around the art of feeling — because experience is everything.</p></div>
+    <div class="exp-card reveal"><div class="exp-num">05</div><h3>Space Consultancy</h3><p>Not every project needs a full redesign. Sometimes it needs a trained eye and an honest conversation. Expert consultancy for spaces at any stage.</p></div>
+    <div class="exp-card reveal"><div class="exp-num">06</div><h3>Turnkey Installation</h3><p>From sourcing to final nail — we manage the entire project end to end. Full accountability, obsessive quality control, and delivery that always exceeds the brief.</p></div>
+  </div>
+</section>
+
+<section class="process">
+  <span class="section-label">How We Work</span>
+  <h2 class="section-title reveal">Our process.</h2>
+  <div class="process-track">
+    <div class="process-step reveal"><div class="step-dot"></div><div class="step-num">01</div><h3>Discover</h3><p>We listen first. We learn about you, your space, your goals, and what presence means to you — before we sketch a single line.</p></div>
+    <div class="process-step reveal"><div class="step-dot"></div><div class="step-num">02</div><h3>Design</h3><p>Our team creates concepts that are both beautiful and deeply intentional. Every element earns its place. Nothing placed without purpose.</p></div>
+    <div class="process-step reveal"><div class="step-dot"></div><div class="step-num">03</div><h3>Refine</h3><p>We work with you through every iteration until the design feels exactly right — nothing more, nothing less than what the space needs.</p></div>
+    <div class="process-step reveal"><div class="step-dot"></div><div class="step-num">04</div><h3>Deliver</h3><p>Execution is where we prove ourselves. We oversee every detail from procurement to final installation with complete accountability.</p></div>
+  </div>
+</section>
+
+<section class="director-strip">
+  <img src="https://images.unsplash.com/photo-1560448075-57d0285fc7cd?w=800&q=80" alt="Udric Studio" class="director-img reveal">
+  <div class="reveal">
+    <span class="section-label" style="margin-bottom:32px;display:block">Our Philosophy</span>
+    <blockquote class="director-quote">"Design is not decoration. It is the difference between a house and a home — between a room and a presence."</blockquote>
+    <p class="director-name">Creative Director</p>
+    <p class="director-role">Udric Interior Design Studio</p>
+    <button onclick="openConsult()" class="btn-primary" style="margin-top:36px">Book a Consultation</button>
+  </div>
+</section>
+
+<div class="services-cta">
+  <h2 class="reveal">Ready to give your space a presence?</h2>
+  <p class="reveal">Tell us about your project and we'll be in touch within 48 hours.</p>
+  <button class="btn-primary" onclick="openConsult()">Start a Project</button>
+</div>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><span class="logo">UDRIC</span><p>Presence in every space. We design and dress homes that are seen, felt, and remembered.</p></div>
+    <div class="footer-col"><h5>Navigate</h5><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Companies</h5><ul><li><a href="shop.html#spaces">Udric Spaces</a></li><li><a href="shop.html#living">Udric Living</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="mailto:hello@udric.com">hello@udric.com</a></li><li><a href="tel:+2349161106196">+234 916 110 6196</a></li><li><span>Lagos, Nigeria</span></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Udric Interior Design. All rights reserved.</span><span>Presence. In every space.</span></div>
+</footer>
+
+<div class="consult-overlay" id="consultModal" onclick="closeConsultOut(event)">
+  <div class="consult-box">
+    <button class="consult-close" onclick="closeConsult()">✕</button>
+    <h3>Book a Consultation</h3>
+    <p>Fill in your details and we'll be in touch within 48 hours.</p>
+    <form onsubmit="handleConsult(event)">
+      <input type="text" placeholder="Your Name *" required>
+      <input type="email" placeholder="Email Address *" required>
+      <select><option value="">Seeking For</option><option>Residential Interior Design</option><option>Commercial Design</option><option>Lighting Design</option><option>Hospitality Design</option><option>Home Textiles — Udric Living</option><option>General Enquiry</option></select>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <button type="submit">Book Consultation</button>
+      <p class="consult-success" id="consultSuccess" style="display:none">Thank you — we'll be in touch shortly.</p>
+    </form>
+  </div>
+</div>
+<script src="shared.js"></script><script src="consult.js"></script>
+</body>
+</html>

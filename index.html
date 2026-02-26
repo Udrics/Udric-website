@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Udric — Presence in Every Space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex; align-items: flex-end;
+    padding: 0 6vw 90px;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(160deg, rgba(17,16,9,0.72) 0%, rgba(17,16,9,0.28) 55%, rgba(17,16,9,0.65) 100%),
+      url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=80') center/cover no-repeat;
+  }
+  .hero-side-text {
+    position: absolute; top: 160px; right: 6vw;
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold-light); writing-mode: vertical-rl; opacity: 0.7;
+  }
+  .hero-content { position: relative; z-index: 2; max-width: 820px; }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold-light); margin-bottom: 22px;
+    opacity: 0; animation: fadeUp 1s 0.3s forwards;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.6rem, 9vw, 7.5rem);
+    font-weight: 300; line-height: 1.04; color: var(--ivory);
+    margin-bottom: 30px;
+    opacity: 0; animation: fadeUp 1s 0.55s forwards;
+  }
+  .hero-title em { font-style: italic; color: var(--gold-light); }
+  .hero-desc {
+    font-size: 1.05rem; color: rgba(250,247,242,0.68);
+    max-width: 460px; line-height: 1.85; margin-bottom: 52px;
+    opacity: 0; animation: fadeUp 1s 0.8s forwards;
+  }
+  .hero-actions {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 1s 1s forwards;
+  }
+
+  /* MARQUEE */
+  .marquee-wrap { background: var(--warm-black); padding: 15px 0; overflow: hidden; }
+  .marquee-track { display: flex; white-space: nowrap; animation: marquee 24s linear infinite; }
+  .marquee-track span { display: inline-block; font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); padding: 0 44px; }
+  .marquee-track span.sep { color: rgba(255,255,255,0.18); padding: 0; }
+
+  /* TWO COMPANIES PREVIEW */
+  .companies { padding: var(--section-pad) 6vw; background: var(--ivory); }
+  .companies-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 56px; flex-wrap: wrap; gap: 20px; }
+  .companies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .company-card { position: relative; height: 600px; overflow: hidden; cursor: pointer; }
+  .company-card-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 0.8s ease; }
+  .company-card:hover .company-card-bg { transform: scale(1.06); }
+  .company-card-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(17,16,9,0.93) 0%, rgba(17,16,9,0.25) 60%, transparent 100%); }
+  .company-card-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 52px 44px; z-index: 2; }
+  .company-tag { display: inline-block; font-size: 0.63rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 5px 12px; margin-bottom: 16px; }
+  .company-name { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 300; color: var(--ivory); line-height: 1.2; margin-bottom: 14px; }
+  .company-desc { font-size: 0.87rem; color: rgba(250,247,242,0.62); line-height: 1.8; max-width: 360px; margin-bottom: 28px; }
+  .company-link { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-light); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap 0.3s; }
+  .company-link:hover { gap: 16px; }
+  .company-link::after { content: '→'; }
+
+  /* STATS */
+  .stats-bar { background: var(--gold); padding: 58px 6vw; display: grid; grid-template-columns: repeat(4,1fr); }
+  .stat { text-align: center; }
+  .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3.8rem; font-weight: 300; color: var(--warm-black); line-height: 1; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(17,16,9,0.6); margin-top: 8px; }
+
+  /* INTRO STRIP */
+  .intro-strip { background: var(--cream); padding: 80px 6vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .intro-strip h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,4vw,3.2rem); font-weight: 300; line-height: 1.2; margin-bottom: 20px; }
+  .intro-strip p { color: var(--muted); line-height: 1.9; font-size: 0.96rem; margin-bottom: 16px; }
+  .intro-img { width: 100%; height: 420px; object-fit: cover; }
+
+  @media(max-width:900px){
+    .companies-grid { grid-template-columns: 1fr; }
+    .stats-bar { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .intro-strip { grid-template-columns: 1fr; gap: 40px; }
+    .companies-header { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar" class="nav-transparent">
+  <a href="index.html" class="nav-logo">UDRIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Our Services</a></li>
+    <li><a href="projects.html">Our Projects</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta-btn" onclick="openConsult()">Book Consultation</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <a href="services.html" onclick="closeMobile()">Services</a>
+  <a href="projects.html" onclick="closeMobile()">Projects</a>
+  <a href="shop.html" onclick="closeMobile()">Shop</a>
+  <a href="media.html" onclick="closeMobile()">Media</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-side-text">Est. Lagos, Nigeria</div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Udric Interior Design Studio</p>
+    <h1 class="hero-title">Where every<br>space is <em>seen,</em><br>felt & remembered.</h1>
+    <p class="hero-desc">From minimalist chandeliers to luxurious bed linens — we give your home a presence. Not just a look. A feeling.</p>
+    <div class="hero-actions">
+      <a href="projects.html" class="btn-primary">View Our Work</a>
+      <a href="about.html" class="btn-ghost">Our Story</a>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Interior Design</span><span class="sep">·</span><span>Lighting & Chandeliers</span><span class="sep">·</span><span>Home Textiles</span><span class="sep">·</span><span>Minimalist Aesthetics</span><span class="sep">·</span><span>Presence in Every Space</span><span class="sep">·</span><span>Duvets & Bedsheets</span><span class="sep">·</span><span>Bespoke Curtains</span><span class="sep">·</span><span>Creative Execution</span><span class="sep">·</span>
+    <span>Interior Design</span><span class="sep">·</span><span>Lighting & Chandeliers</span><span class="sep">·</span><span>Home Textiles</span><span class="sep">·</span><span>Minimalist Aesthetics</span><span class="sep">·</span><span>Presence in Every Space</span><span class="sep">·</span><span>Duvets & Bedsheets</span><span class="sep">·</span><span>Bespoke Curtains</span><span class="sep">·</span><span>Creative Execution</span><span class="sep">·</span>
+  </div>
+</div>
+
+<section class="companies">
+  <div class="companies-header">
+    <div>
+      <p class="section-label">Two Bodies. One Presence.</p>
+      <h2 class="section-title reveal">Our two sister companies<br>cover every corner of your home.</h2>
+    </div>
+    <a href="services.html" class="btn-outline">All Services</a>
+  </div>
+  <div class="companies-grid">
+    <div class="company-card reveal">
+      <div class="company-card-bg" style="background-image:url('https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&q=80')"></div>
+      <div class="company-card-overlay"></div>
+      <div class="company-card-content">
+        <span class="company-tag">Sister Company I</span>
+        <h3 class="company-name">Udric Spaces</h3>
+        <p class="company-desc">Minimalist interior design and bespoke lighting — from ambient pendants to statement chandeliers — that sculpt the mood of any space.</p>
+        <a href="services.html#spaces" class="company-link">Explore</a>
+      </div>
+    </div>
+    <div class="company-card reveal">
+      <div class="company-card-bg" style="background-image:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80')"></div>
+      <div class="company-card-overlay"></div>
+      <div class="company-card-content">
+        <span class="company-tag">Sister Company II</span>
+        <h3 class="company-name">Udric Living</h3>
+        <p class="company-desc">Modern home textiles for elegant, cosy spaces. Luxury duvets, refined bedsheets, and bespoke curtains — every piece chosen to make your home feel like a sanctuary.</p>
+        <a href="shop.html" class="company-link">Browse Collection</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat reveal"><div class="stat-num">40+</div><div class="stat-label">Projects Completed</div></div>
+  <div class="stat reveal"><div class="stat-num">2</div><div class="stat-label">Sister Companies</div></div>
+  <div class="stat reveal"><div class="stat-num">5+</div><div class="stat-label">Years of Presence</div></div>
+  <div class="stat reveal"><div class="stat-num">100%</div><div class="stat-label">Seen & Felt Spaces</div></div>
+</div>
+
+<section class="intro-strip">
+  <div class="reveal">
+    <p class="section-label">Why Udric</p>
+    <h2>Born from a name.<br>Built on meaning.</h2>
+    <p>Udric was born from two names — <strong>Udeh</strong> and <strong>Patric</strong>. In Igbo, Udeh means <em>presence</em>. Some call it "cream." And that philosophy drives everything we do.</p>
+    <p>Cream is small, almost invisible — yet when applied, it transforms. It brings life to the skin. That is what Udric does to a space: a considered touch that gives it a presence felt even before a word is spoken.</p>
+    <a href="about.html" class="btn-outline" style="margin-top:24px;display:inline-block">Read Our Story</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=900&q=80" alt="Udric interior" class="intro-img reveal">
+</section>
+
+<section class="voices">
+  <div class="voices-bg"></div>
+
+  <div class="voice-card v1">
+    <p>Udric didn’t just design our home — they changed how it feels to live in it.</p>
+    <span>— Private Residence, Ikoyi</span>
+  </div>
+
+  <div class="voice-card v2">
+    <p>The lighting alone transformed the entire atmosphere of our space.</p>
+    <span>— Apartment Renovation, Lekki</span>
+  </div>
+
+  <div class="voice-card v3">
+    <p>There’s a calmness in every room now. Quiet. Intentional.</p>
+    <span>— Family Home, Abuja</span>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo">UDRIC</span>
+      <p>Presence in every space. We design and dress homes that are seen, felt, and remembered — across two sister companies serving all of your interior needs.</p>
+    </div>
+    <div class="footer-col"><h5>Navigate</h5><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Companies</h5><ul>
+      <li><a href="services.html#spaces">Udric Spaces</a></li>
+      <li><a href="shop.html">Udric Living</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul>
+      <li><a href="mailto:hello@udric.com">hello@udric.com</a></li>
+      <li><a href="tel:+2349161106196">+234 916 110 6196</a></li>
+      <li><span>Lagos, Nigeria</span></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Udric Interior Design. All rights reserved.</span>
+    <span>Presence. In every space.</span>
+  </div>
+</footer>
+
+<div class="consult-overlay" id="consultModal" onclick="closeConsultOut(event)">
+  <div class="consult-box">
+    <button class="consult-close" onclick="closeConsult()">✕</button>
+    <h3>Book a Consultation</h3>
+    <p>Fill in your details and we'll be in touch within 48 hours.</p>
+    <form onsubmit="handleConsult(event)">
+      <input type="text" placeholder="Your Name *" required>
+      <input type="email" placeholder="Email Address *" required>
+      <select><option value="">Seeking For</option><option>Residential Interior Design</option><option>Commercial Design</option><option>Lighting Design</option><option>Hospitality Design</option><option>Home Textiles — Udric Living</option><option>General Enquiry</option></select>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <button type="submit">Book Consultation</button>
+      <p class="consult-success" id="consultSuccess" style="display:none">Thank you — we'll be in touch shortly.</p>
+    </form>
+  </div>
+</div>
+<script src="shared.js"></script><script src="consult.js"></script>
+</body>
+</html>

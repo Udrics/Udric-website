@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Udric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+  .about-story { padding: var(--section-pad) 6vw; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; background: var(--ivory); }
+  .about-story p { color: var(--muted); line-height: 1.95; font-size: 0.97rem; margin-bottom: 20px; }
+  .about-story p strong { color: var(--charcoal); font-weight: 500; }
+  .story-img-wrap { position: relative; }
+  .story-img-main { width: 100%; height: 560px; object-fit: cover; }
+  .story-img-small { position: absolute; bottom: -36px; left: -36px; width: 190px; height: 250px; object-fit: cover; border: 6px solid var(--ivory); }
+
+  .quote-strip { background: var(--warm-black); padding: 80px 6vw; text-align: center; }
+  .quote-strip blockquote { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.5; max-width: 860px; margin: 0 auto 24px; }
+  .quote-strip cite { font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+
+  .name-section { padding: var(--section-pad) 6vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .name-meaning { background: var(--warm-black); padding: 52px 48px; }
+  .name-meaning h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 28px; }
+  .meaning-item { padding: 24px 0; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .meaning-item:last-child { border-bottom: none; }
+  .meaning-item h4 { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300; color: var(--cream); margin-bottom: 8px; }
+  .meaning-item p { font-size: 0.86rem; color: rgba(250,247,242,0.48); line-height: 1.8; }
+
+  .values { padding: var(--section-pad) 6vw; background: var(--ivory); }
+  .values .section-title { margin-bottom: 60px; }
+  .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+  .value-card { background: var(--cream); padding: 48px 36px; border-top: 2px solid transparent; transition: border-color 0.3s; }
+  .value-card:hover { border-color: var(--gold); }
+  .value-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold); opacity: 0.4; margin-bottom: 16px; line-height: 1; }
+  .value-card h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 12px; }
+  .value-card p { font-size: 0.87rem; color: var(--muted); line-height: 1.85; }
+
+  @media(max-width:900px){
+    .about-story, .name-section { grid-template-columns: 1fr; gap: 48px; }
+    .story-img-small { display: none; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar" class="nav-solid">
+  <a href="index.html" class="nav-logo">UDRIC</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="services.html">Our Services</a></li>
+    <li><a href="projects.html">Our Projects</a></li>
+    <li><a href="shop.html">Shop</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-cta-btn" onclick="openConsult()">Book Consultation</button>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobile()">Home</a><a href="about.html" onclick="closeMobile()">About</a>
+  <a href="services.html" onclick="closeMobile()">Services</a><a href="projects.html" onclick="closeMobile()">Projects</a>
+  <a href="shop.html" onclick="closeMobile()">Shop</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+<div class="page-hero" style="padding-top:100px">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1800&q=80')"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-eyebrow">Who We Are</p>
+    <h1 class="page-hero-title">Born from a name.<br>Built on <em>presence.</em></h1>
+  </div>
+</div>
+
+<section class="about-story">
+  <div class="reveal">
+    <span class="section-label">Our Origin</span>
+    <h2 class="section-title" style="margin-bottom:28px">The story behind<br>the name Udric.</h2>
+    <p>Udric was created from two names — <strong>Udeh</strong> and <strong>Patric</strong>. But its meaning runs far deeper than the people it came from.</p>
+    <p>In Igbo, <strong>Udeh</strong> means <em>presence</em>. Some call it "cream." That word — cream — unlocks everything we stand for. Cream is small, almost invisible in the hand, yet when applied to the skin, it transforms. It softens. It reveals beauty. It gives life.</p>
+    <p>That is precisely what Udric does to a home. A considered touch. A quiet but undeniable presence. Not loud, not overwhelming — just <strong>felt</strong>.</p>
+    <p>We believe every home deserves to be seen. Every room deserves to be felt. And every space — however small, however forgotten — deserves the kind of presence that makes it whole.</p>
+  </div>
+  <div class="story-img-wrap reveal">
+    <img src="https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=900&q=80" alt="Udric interior detail" class="story-img-main">
+    <img src="https://images.unsplash.com/photo-1556020685-ae41abfc9365?w=400&q=80" alt="Udric texture" class="story-img-small">
+  </div>
+</section>
+
+<div class="quote-strip">
+  <blockquote class="reveal">"Udeh — presence. The kind that doesn't shout, but is always, quietly, undeniably felt. Every home we touch is seen. Every space we dress is remembered."</blockquote>
+  <cite>— The Udric Philosophy</cite>
+</div>
+
+<section class="name-section">
+  <div class="reveal">
+    <span class="section-label">The Name</span>
+    <h2 class="section-title" style="margin-bottom:24px">Every letter<br>carries weight.</h2>
+    <p style="color:var(--muted);line-height:1.9;font-size:0.96rem;margin-bottom:16px">Udric is not just a brand name. It is a declaration. The fusion of Udeh (presence) and Patric represents our belief that great design is always a collaboration — between vision and execution, between feeling and form.</p>
+    <p style="color:var(--muted);line-height:1.9;font-size:0.96rem">Just as cream applied in the right place at the right time can reveal a person's natural beauty, our studio applies design with precision and intention — revealing the inherent beauty of every space we touch.</p>
+  </div>
+  <div class="name-meaning reveal">
+    <h3>What the name means</h3>
+    <div class="meaning-item">
+      <h4>Udeh</h4>
+      <p>In Igbo — "presence." The feeling of being seen even in the smallest way. Quiet, certain, unmistakable.</p>
+    </div>
+    <div class="meaning-item">
+      <h4>Cream</h4>
+      <p>Small but transformative. Applied with care, it gives beauty. So does every Udric touch.</p>
+    </div>
+    <div class="meaning-item">
+      <h4>Udric</h4>
+      <p>Born from Udeh + Patric. Two people, one shared vision: that every home deserves to be felt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="values">
+  <span class="section-label">What We Stand For</span>
+  <h2 class="section-title reveal">Our three pillars.</h2>
+  <div class="values-grid" style="margin-top:48px">
+    <div class="value-card reveal">
+      <div class="value-num">01</div>
+      <h3>Presence</h3>
+      <p>Every design decision we make is in service of one goal: making your space feel inhabited, alive, and unmistakably yours. Not just decorated — present.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-num">02</div>
+      <h3>Minimalist Intention</h3>
+      <p>We don't believe in excess. We believe in the right thing, in the right place. Less noise, more feeling. Every piece earns its place in the room.</p>
+    </div>
+    <div class="value-card reveal">
+      <div class="value-num">03</div>
+      <h3>Excellence in Execution</h3>
+      <p>A beautiful idea is only as good as its delivery. From first sketch to final installation, we pay obsessive attention to every detail - because you deserve nothing less.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand"><span class="logo">UDRIC</span><p>Presence in every space. We design and dress homes that are seen, felt, and remembered.</p></div>
+    <div class="footer-col"><h5>Navigate</h5><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li><li><a href="projects.html">Projects</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Companies</h5><ul><li><a href="services.html">Udric Spaces</a></li><li><a href="shop.html">Udric Living</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li><a href="mailto:hello@udric.com">hello@udric.com</a></li><li><a href="tel:+2349161106196">+234 916 110 6196</a></li><li><span>Lagos, Nigeria</span></li></ul></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 Udric Interior Design. All rights reserved.</span><span>Presence. In every space.</span></div>
+</footer>
+<div class="consult-overlay" id="consultModal" onclick="closeConsultOut(event)">
+  <div class="consult-box">
+    <button class="consult-close" onclick="closeConsult()">✕</button>
+    <h3>Book a Consultation</h3>
+    <p>Fill in your details and we'll be in touch within 48 hours.</p>
+    <form onsubmit="handleConsult(event)">
+      <input type="text" placeholder="Your Name *" required>
+      <input type="email" placeholder="Email Address *" required>
+      <select><option value="">Seeking For</option><option>Residential Interior Design</option><option>Commercial Design</option><option>Lighting Design</option><option>Hospitality Design</option><option>Home Textiles — Udric Living</option><option>General Enquiry</option></select>
+      <textarea placeholder="Tell us about your project..."></textarea>
+      <button type="submit">Book Consultation</button>
+      <p class="consult-success" id="consultSuccess" style="display:none">Thank you — we'll be in touch shortly.</p>
+    </form>
+  </div>
+</div>
+<script src="shared.js"></script><script src="consult.js"></script>
+</body>
+</html>
